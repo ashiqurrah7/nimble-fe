@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useState }  from 'react';
 import Form from 'react-bootstrap/Form';
-
+import Cookies from 'js-cookie';
+import { createSession } from '@/endpoints/authentications'
 import {
   StyledContainer,
   StyledForm,
   StyledInputContainer,
   StyledInput,
   StyledButton,
-  StyledButtonContainer
+  StyledButtonContainer,
 } from '../../Shared/AuthStyles'
 
 const Login = () => {
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+
+  const handleSubmit = async () => {
+    try {
+      const { data } = await createSession({ username, password });
+      Cookies.set('token',data?.data?.token);
+      Cookies.set('name', data?.data?.username);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <StyledContainer>
       <StyledForm>
@@ -20,6 +37,7 @@ const Login = () => {
           <StyledInput
             type="text"
             name="username"
+            onChange={handleUsernameChange}
           />
         </StyledInputContainer>
         <StyledInputContainer>
@@ -27,10 +45,11 @@ const Login = () => {
           <StyledInput
             type="password"
             name="password"
+            onChange={handlePasswordChange}
           />
         </StyledInputContainer>
         <StyledButtonContainer>
-          <StyledButton variant="primary">Login</StyledButton>
+          <StyledButton variant="primary" type='submit' onClick={handleSubmit}>Login</StyledButton>
         </StyledButtonContainer>
       </StyledForm>
     </StyledContainer>
