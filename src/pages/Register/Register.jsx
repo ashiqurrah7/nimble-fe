@@ -1,6 +1,5 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
-
 import {
   StyledContainer,
   StyledForm,
@@ -14,7 +13,7 @@ const Login = () => {
   return (
     <StyledContainer>
       <StyledForm>
-        <h2>Login</h2>
+        <h2>Register</h2>
         <StyledInputContainer>
           <Form.Label htmlFor="username">Username</Form.Label>
           <StyledInput
@@ -30,7 +29,7 @@ const Login = () => {
           />
         </StyledInputContainer>
         <StyledButtonContainer>
-          <StyledButton variant="primary">Login</StyledButton>
+          <StyledButton variant="primary">Register</StyledButton>
         </StyledButtonContainer>
       </StyledForm>
     </StyledContainer>
