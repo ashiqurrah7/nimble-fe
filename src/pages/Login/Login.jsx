@@ -9,7 +9,7 @@ import {
   StyledInput,
   StyledButton,
   StyledButtonContainer,
-} from '../../Shared/AuthStyles'
+} from '@/Shared/AuthStyles'
 
 const Login = () => {
   const [username, setUsername] = useState(null);
