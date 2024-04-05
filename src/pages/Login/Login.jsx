@@ -14,11 +14,16 @@ import {
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
   const handleSubmit = async () => {
+   if(!username || !password) {
+    console.log('Username or Password cannot be blank!');
+   } else {
+    setSubmitting(true);
     try {
       const { data } = await createSession({ username, password });
       Cookies.set('token',data?.data?.token);
@@ -26,6 +31,8 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
+    setSubmitting(false);
+   }
   }
 
   return (
@@ -38,6 +45,7 @@ const Login = () => {
             type="text"
             name="username"
             onChange={handleUsernameChange}
+            required
           />
         </StyledInputContainer>
         <StyledInputContainer>
@@ -46,10 +54,18 @@ const Login = () => {
             type="password"
             name="password"
             onChange={handlePasswordChange}
+            required
           />
         </StyledInputContainer>
         <StyledButtonContainer>
-          <StyledButton variant="primary" type='submit' onClick={handleSubmit}>Login</StyledButton>
+          <StyledButton
+            variant="primary"
+            type='submit'
+            onClick={handleSubmit}
+            disabled={submitting}
+          >
+            Login
+          </StyledButton>
         </StyledButtonContainer>
       </StyledForm>
     </StyledContainer>
