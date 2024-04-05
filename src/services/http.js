@@ -7,7 +7,6 @@ const HTTP = axios.create({
 });
 
  const token = Cookies.get('token');
- console.log(token);
  HTTP.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 export default HTTP;

@@ -1,13 +1,19 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import { AddKeywords, Login, Register } from './pages'
+import {
+  AddKeywords,
+  Login,
+  Register,
+  KeywordDetails
+} from './pages'
 
 function App() {
   return (
     <Routes>
-      <Route path='/login' element={<Login />} ></Route>
-      <Route path='/register' element={<Register />} ></Route>
-      <Route path='/' element={<AddKeywords />} ></Route> 
+      <Route exact path='/' element={<AddKeywords />} ></Route>
+      <Route exact path='/login' element={<Login />} ></Route>
+      <Route exact path='/register' element={<Register />} ></Route>
+      <Route exact path='/keywords/:keywordId' element={<KeywordDetails />} ></Route>
     </Routes>
   )
 }
