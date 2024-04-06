@@ -6,6 +6,7 @@ import {
   Register,
   KeywordDetails
 } from './pages'
+import KeywordList from './pages/KeywordList/KeywordList'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route exact path='/' element={<AddKeywords />} ></Route>
       <Route exact path='/login' element={<Login />} ></Route>
       <Route exact path='/register' element={<Register />} ></Route>
+      <Route exact path='/keywords' element={<KeywordList />} ></Route>
       <Route exact path='/keywords/:keywordId' element={<KeywordDetails />} ></Route>
     </Routes>
   )
