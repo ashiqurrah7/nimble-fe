@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PageLoader } from '@/Shared';
 import { getKeywords } from '@/endpoints/keywords';
 import {
@@ -13,7 +13,8 @@ import {
   StyledBottomSection,
  } from './KeywordListStyles';
 
-const KeywordList = () => {
+const KeywordList = ({ token }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [keywords, setKeywords] = useState([]);
   const [filteredKeywords, setFilteredKeywords] = useState([]);
@@ -34,10 +35,11 @@ const KeywordList = () => {
   }
 
   useEffect(() => {
+    if(!token) navigate('/login');
     setLoading(true);
     callGetKeywords(); 
     setLoading(false);
-  }, []);
+  }, [token]);
   
   if (loading) return <PageLoader />
   else if (keywords.length === 0) return (

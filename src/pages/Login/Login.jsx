@@ -1,5 +1,6 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { createSession } from '@/endpoints/authentications'
 import {
@@ -11,10 +12,15 @@ import {
   StyledButtonContainer,
 } from '@/Shared/AuthStyles'
 
-const Login = () => {
+const Login = ({ token, setToken }) => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if(token) navigate('/');
+  }, [token])
 
   const handleUsernameChange = ({ target }) => setUsername(target.value);
   const handlePasswordChange = ({ target }) => setPassword(target.value);
@@ -26,8 +32,9 @@ const Login = () => {
     setSubmitting(true);
     try {
       const { data } = await createSession({ username, password });
-      Cookies.set('token',data?.data?.token);
-      Cookies.set('name', data?.data?.username);
+      Cookies.set('token', data?.data?.token);
+      setToken(data?.data?.token);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
