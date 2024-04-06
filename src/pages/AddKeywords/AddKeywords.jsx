@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 import {
   StyledContainer,
   StyledFormContainer,
@@ -8,13 +9,18 @@ import {
 } from './AddKeywordsStyles';
 import { createKeywords } from '@/endpoints/keywords';
 
-const AddKeywords = () => {
+const AddKeywords = ({ token }) => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   }
+
+  useEffect(() => {
+    if(!token) navigate('/login');
+  }, [token])
 
   const handleSubmit = async () => {
     if (!file) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getKeyword } from '@/endpoints/keywords';
 import { PageLoader } from '@/Shared';
 import {
@@ -11,7 +11,8 @@ import {
   StyledCodeArea,
  } from './KeywordDetailsStyles';
 
-const KeywordDetails = () => {
+const KeywordDetails = ({ token }) => {
+  const navigate = useNavigate();
   const { keywordId } = useParams();
   const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState(null);
@@ -26,10 +27,11 @@ const KeywordDetails = () => {
     }
   }
   useEffect(() => {
+    if(!token) navigate('/login');
     setLoading(true);
     callGetKeyword(); 
     setLoading(false);
-  }, []);
+  }, [token]);
   
   if (loading) return <PageLoader />
   else if (!keyword) return (

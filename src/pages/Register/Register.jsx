@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 import { createUserAccount } from '@/endpoints/authentications'
 import {
   StyledContainer,
@@ -10,11 +11,16 @@ import {
   StyledButtonContainer
 } from '@/Shared/AuthStyles'
 
-const Register = () => {
+const Register = ({ token }) => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [cpassword, setCPassword] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if(token) navigate('/');
+  }, [token])
 
   const handleUsernameChange = ({ target }) => setUsername(target.value);
   const handlePasswordChange = ({ target }) => setPassword(target.value);
@@ -30,6 +36,7 @@ const Register = () => {
       try {
         const { data } = await createUserAccount({ username, password });
         console.log(data?.message);
+        navigate('/login');
       } catch (error) {
         console.log(error);
       }
