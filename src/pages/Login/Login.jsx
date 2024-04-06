@@ -16,8 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleUsernameChange = (event) => setUsername(event.target.value);
-  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleUsernameChange = ({ target }) => setUsername(target.value);
+  const handlePasswordChange = ({ target }) => setPassword(target.value);
 
   const handleSubmit = async () => {
    if(!username || !password) {

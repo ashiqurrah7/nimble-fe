@@ -7,3 +7,7 @@ export function createKeywords(data) {
 export function getKeyword(id) {
   return HTTP.get(`/keywords/${id}`);
 }
+
+export function getKeywords() {
+  return HTTP.get(`/keywords`);
+}
