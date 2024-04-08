@@ -1,6 +1,8 @@
 import { useState, useEffect, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   AddKeywords,
   Login,
@@ -29,6 +31,7 @@ function App() {
         <Route exact path='/keywords' element={<KeywordList token={token} />} ></Route>
         <Route exact path='/keywords/:keywordId' element={<KeywordDetails token={token}/>}></Route>
       </Routes>
+      <ToastContainer />
     </>
   )
 }
