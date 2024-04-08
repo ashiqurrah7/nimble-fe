@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getKeyword } from '@/endpoints/keywords';
 import { PageLoader } from '@/Shared';
 import {
@@ -23,7 +24,7 @@ const KeywordDetails = ({ token }) => {
       const { data } = await getKeyword(keywordId);
       setKeyword(data);
     } catch(error) {
-      console.log(error);
+      toast.error(error?.response?.data?.message, { position: "bottom-right" });
     }
   }
   useEffect(() => {

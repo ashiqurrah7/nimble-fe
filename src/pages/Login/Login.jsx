@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { createSession } from '@/endpoints/authentications'
 import {
@@ -27,7 +28,7 @@ const Login = ({ token, setToken }) => {
 
   const handleSubmit = async () => {
    if(!username || !password) {
-    console.log('Username or Password cannot be blank!');
+    toast.error('Username or Password cannot be blank!', { position: "bottom-right" });
    } else {
     setSubmitting(true);
     try {
@@ -36,7 +37,7 @@ const Login = ({ token, setToken }) => {
       setToken(data?.data?.token);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error(error?.response?.data?.message, { position: "bottom-right" });
     }
     setSubmitting(false);
    }

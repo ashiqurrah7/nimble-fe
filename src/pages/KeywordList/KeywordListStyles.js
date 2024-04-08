@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 
 
 export const StyledContainer = styled.div`
-  padding: 10rem 20rem;
+  padding: 10rem;
 `;
 
 export const StyledNotFoundContainer = styled.div`

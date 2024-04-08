@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { PageLoader } from '@/Shared';
 import { getKeywords } from '@/endpoints/keywords';
 import {
@@ -25,7 +26,7 @@ const KeywordList = ({ token }) => {
       setKeywords(data);
       setFilteredKeywords(data);
     } catch(error) {
-      console.log(error);
+      toast.error(error?.response?.data?.message, { position: "bottom-right" });
     }
   }
 

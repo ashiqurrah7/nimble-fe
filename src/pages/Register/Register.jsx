@@ -28,17 +28,17 @@ const Register = ({ token }) => {
 
   const handleSubmit = async () => {
     if (!username || !password || !cpassword) {
-      console.log('Username, Password and Confirm Password cannot be blank!');
+      toast.error('Username, Password and Confirm Password cannot be blank!', { position: "bottom-right" });
     } else if (password !== cpassword) {
-      console.log('Passwords don\'t match!');
+      toast.error('Passwords don\'t match!', { position: "bottom-right" });
     } else {
       setSubmitting(true);
       try {
         const { data } = await createUserAccount({ username, password });
-        console.log(data?.message);
+        toast.success(data?.message, { position: "bottom-right" });
         navigate('/login');
       } catch (error) {
-        console.log(error);
+        toast.error(error?.response?.data?.message, { position: "bottom-right" });
       }
       setSubmitting(false);
     }
